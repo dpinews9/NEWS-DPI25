@@ -1,81 +1,118 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { TrendingUp, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { formatDistanceToNow } from 'date-fns';
+import { ta } from 'date-fns/locale';
+
+type Article = {
+  id: string;
+  title: string;
+  content: string;
+  image_url: string | null;
+  created_at: string;
+  category: string;
+  profiles?: {
+    username: string;
+    full_name: string | null;
+  }
+};
 
 interface TrendingNewsProps {
   className?: string;
+  articles?: Article[];
 }
 
-const TrendingNews = ({ className }: TrendingNewsProps) => {
-  // This would normally come from an API
-  const trendingArticles = [
+const TrendingNews = ({ className, articles = [] }: TrendingNewsProps) => {
+  // Use provided articles or fallback to placeholders
+  const trendingArticles = articles.length > 0 ? articles : [
     {
-      id: 101,
-      title: "டெக் துறை உயர்வால் பங்குச் சந்தை சாதனை உயரத்தை தொட்டது",
-      publishedAt: "1 மணி நேரத்திற்கு முன்",
-      views: "24.5K"
+      id: "trending-1",
+      title: "உங்கள் ஆரோக்கியத்தை மேம்படுத்தும் 5 எளிய உணவுகள்",
+      content: "உங்கள் உடல் ஆரோக்கியத்தை உயர்த்தும் சூப்பர்ஃபூட்கள்...",
+      image_url: "https://via.placeholder.com/120x80",
+      created_at: new Date().toISOString(),
+      category: "உடல்நலம்"
     },
     {
-      id: 102,
-      title: "புதிய தடுப்பூசி மூன்றாம் கட்ட சோதனையில் 95% திறன் காட்டியது",
-      publishedAt: "3 மணி நேரத்திற்கு முன்",
-      views: "19.2K"
+      id: "trending-2",
+      title: "அடுத்த ஆண்டின் தொழில்நுட்ப போக்குகள்",
+      content: "வரவிருக்கும் ஆண்டில் எதிர்பார்க்கப்படும் புதிய தொழில்நுட்பங்கள்...",
+      image_url: "https://via.placeholder.com/120x80",
+      created_at: new Date().toISOString(),
+      category: "தொழில்நுட்பம்"
     },
     {
-      id: 103,
-      title: "பிரபல திரைப்பட நிறுவனம் புதிய ஸ்ட்ரீமிங் தளத்தை அறிவித்தது",
-      publishedAt: "5 மணி நேரத்திற்கு முன்",
-      views: "15.7K"
+      id: "trending-3",
+      title: "உலகளாவிய பொருளாதார வளர்ச்சி எதிர்பார்ப்புகள்",
+      content: "2023-ல் உலகளாவிய பொருளாதாரம் எப்படி இருக்கும்?",
+      image_url: "https://via.placeholder.com/120x80",
+      created_at: new Date().toISOString(),
+      category: "வணிகம்"
     },
     {
-      id: 104,
-      title: "உலகளாவிய விநியோக சங்கிலி பிரச்சனைகள் பொருள் பற்றாக்குறையை ஏற்படுத்துகின்றன",
-      publishedAt: "7 மணி நேரத்திற்கு முன்",
-      views: "12.9K"
+      id: "trending-4",
+      title: "சமீபத்திய திரைப்பட வெளியீடுகள் மதிப்பாய்வு",
+      content: "இந்த வாரம் வெளியான புதிய திரைப்படங்கள் குறித்த விமர்சனம்",
+      image_url: "https://via.placeholder.com/120x80", 
+      created_at: new Date().toISOString(),
+      category: "பொழுதுபோக்கு"
     },
     {
-      id: 105,
-      title: "விஞ்ஞானிகள் அமேசான் காடுகளில் புதிய உயிரினங்களை கண்டுபிடித்தனர்",
-      publishedAt: "9 மணி நேரத்திற்கு முன்",
-      views: "10.3K"
+      id: "trending-5", 
+      title: "அரசியல் மாற்றங்களும் பொருளாதார தாக்கங்களும்",
+      content: "அரசியல் மாற்றங்கள் எவ்வாறு பொருளாதாரத்தைப் பாதிக்கின்றன",
+      image_url: "https://via.placeholder.com/120x80",
+      created_at: new Date().toISOString(),
+      category: "அரசியல்"
     }
   ];
 
   return (
-    <section className={cn("py-8 bg-news-light", className)}>
+    <section className={cn("py-8", className)}>
       <div className="news-container">
-        <div className="flex items-center mb-6">
-          <TrendingUp className="text-news-accent w-5 h-5 mr-2" />
-          <h2 className="text-2xl font-bold">டிரெண்டிங் செய்திகள்</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-news-heading">பிரபலமான செய்திகள்</h2>
+          <button className="text-news-accent hover:text-news-accent/80 text-sm font-semibold transition-colors">
+            அனைத்தையும் பார்க்க
+          </button>
         </div>
         
-        <div className="bg-white rounded-lg shadow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {trendingArticles.map((article, index) => (
-            <React.Fragment key={article.id}>
-              <Link to={`/article/${article.id}`} className="block group">
-                <div className="flex items-center p-4 hover:bg-news-hover transition-colors">
-                  <div className="text-xl font-bold text-news-accent w-8">
-                    {index + 1}
-                  </div>
-                  <div className="flex-grow pr-4">
-                    <h3 className="font-medium group-hover:text-news-accent transition-colors">
-                      {article.title}
-                    </h3>
-                    <div className="flex items-center text-news-muted text-xs mt-1">
-                      <Clock className="h-3 w-3 mr-1" />
-                      <span>{article.publishedAt}</span>
-                      <span className="mx-1">•</span>
-                      <span>{article.views} பார்வைகள்</span>
-                    </div>
-                  </div>
+            <a 
+              key={article.id || `trending-${index}`} 
+              href={`#article/${article.id}`}
+              className="group"
+            >
+              <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
+                <span className="absolute top-2 left-2 z-10 bg-news-accent text-white text-xs px-2 py-0.5 rounded-full">
+                  {index + 1}
+                </span>
+                <div 
+                  className="absolute inset-0 bg-center bg-cover transition-transform duration-300 group-hover:scale-105" 
+                  style={{ backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/300x200'})` }} 
+                />
+              </div>
+              <div>
+                <h3 className="font-semibold text-news-text group-hover:text-news-accent transition-colors line-clamp-2">
+                  {article.title}
+                </h3>
+                <div className="flex items-center mt-2 text-news-muted text-xs">
+                  <span className="bg-gray-200 text-gray-700 rounded px-2 py-0.5">
+                    {article.category}
+                  </span>
+                  <span className="mx-2">•</span>
+                  <time>
+                    {article.created_at 
+                      ? formatDistanceToNow(new Date(article.created_at), { 
+                          addSuffix: true, 
+                          locale: ta 
+                        })
+                      : ''}
+                  </time>
                 </div>
-              </Link>
-              {index < trendingArticles.length - 1 && (
-                <div className="border-b border-news-border mx-4"></div>
-              )}
-            </React.Fragment>
+              </div>
+            </a>
           ))}
         </div>
       </div>
