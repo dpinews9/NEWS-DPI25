@@ -21,25 +21,25 @@ const NewsletterSignup = ({ className }: NewsletterSignupProps) => {
       <div className="news-container">
         <div className="max-w-3xl mx-auto text-center text-white">
           <Mail className="w-12 h-12 mb-4 mx-auto text-news-accent" />
-          <h2 className="text-3xl font-bold mb-4">Stay updated with the latest news</h2>
+          <h2 className="text-3xl font-bold mb-4">சமீபத்திய செய்திகளைப் பெறுங்கள்</h2>
           <p className="text-lg text-gray-300 mb-8">
-            Subscribe to our newsletter and receive the most important news directly to your inbox.
+            எங்கள் நியூஸ்லெட்டரில் பதிவு செய்து மிக முக்கியமான செய்திகளை நேரடியாக உங்கள் மின்னஞ்சலில் பெறுங்கள்.
           </p>
           
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input 
               type="email" 
-              placeholder="Your email address" 
+              placeholder="உங்கள் மின்னஞ்சல் முகவரி" 
               required
               className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 flex-grow"
             />
             <Button type="submit" className="bg-news-accent hover:bg-news-accent/90 text-white">
-              Subscribe
+              சந்தா செய்க
             </Button>
           </form>
           
           <p className="text-xs text-gray-400 mt-4">
-            By subscribing, you agree to our Privacy Policy and consent to receive updates from NewsMirror.
+            பதிவு செய்வதன் மூலம், எங்களின் தனியுரிமைக் கொள்கையை ஏற்றுக்கொள்கிறீர்கள் மற்றும் நியூஸ்மிரர் இருந்து புதுப்பிப்புகளைப் பெற சம்மதிக்கிறீர்கள்.
           </p>
         </div>
       </div>

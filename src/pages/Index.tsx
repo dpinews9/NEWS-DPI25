@@ -20,28 +20,28 @@ const Index = () => {
         
         <div className="bg-white py-8">
           <NewsCategorySection 
-            category="Technology" 
+            category="தொழில்நுட்பம்" 
             articles={technologyArticles}
           />
         </div>
         
         <div className="bg-news-light py-8">
           <NewsCategorySection 
-            category="Business" 
+            category="வணிகம்" 
             articles={businessArticles}
           />
         </div>
         
         <div className="bg-white py-8">
           <NewsCategorySection 
-            category="Health" 
+            category="உடல்நலம்" 
             articles={healthArticles}
           />
         </div>
         
         <div className="bg-news-light py-8">
           <NewsCategorySection 
-            category="Entertainment" 
+            category="பொழுதுபோக்கு" 
             articles={entertainmentArticles}
           />
         </div>

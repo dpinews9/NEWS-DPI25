@@ -28,7 +28,7 @@ const NewsCategorySection = ({ category, articles, className }: NewsCategorySect
             to={`/category/${category.toLowerCase()}`}
             className="text-news-accent hover:text-news-primary text-sm font-medium"
           >
-            View All
+            அனைத்தையும் காண்க
           </Link>
         </div>
         

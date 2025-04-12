@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const categories = [
-  { name: 'Business', href: '#business' },
-  { name: 'Technology', href: '#technology' },
-  { name: 'Politics', href: '#politics' },
-  { name: 'Science', href: '#science' },
-  { name: 'Health', href: '#health' },
-  { name: 'Entertainment', href: '#entertainment' },
+  { name: 'வணிகம்', href: '#business' },
+  { name: 'தொழில்நுட்பம்', href: '#technology' },
+  { name: 'அரசியல்', href: '#politics' },
+  { name: 'அறிவியல்', href: '#science' },
+  { name: 'உடல்நலம்', href: '#health' },
+  { name: 'பொழுதுபோக்கு', href: '#entertainment' },
 ];
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-news-primary">NewsMirror</h1>
+            <h1 className="text-2xl font-bold text-news-primary">நியூஸ்மிரர்</h1>
           </Link>
 
           {/* Desktop Navigation */}
@@ -70,7 +70,7 @@ const Header = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-news-muted" />
             <input
               type="text"
-              placeholder="Search news..."
+              placeholder="செய்திகளைத் தேடு..."
               className="w-full h-12 pl-10 pr-4 rounded-md border border-news-border focus:outline-none focus:ring-2 focus:ring-news-accent/20 focus:border-news-accent"
             />
           </div>

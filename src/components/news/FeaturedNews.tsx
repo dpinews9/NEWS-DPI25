@@ -12,34 +12,34 @@ const FeaturedNews = ({ className }: FeaturedNewsProps) => {
   // This would normally come from an API
   const mainArticle = {
     id: 1,
-    title: "Global Climate Summit Reaches Historic Agreement on Emissions",
-    excerpt: "World leaders have reached a groundbreaking consensus on carbon emissions, setting ambitious targets for the next decade.",
-    category: "Politics",
+    title: "காலநிலை மாற்றம் குறித்த உலக மாநாட்டில் வரலாற்று உடன்படிக்கை",
+    excerpt: "உலகத் தலைவர்கள் கார்பன் உமிழ்வு குறித்து புதிய இலக்குகளை நிர்ணயித்து வரலாற்று சிறப்புமிக்க ஒப்பந்தத்தை உருவாக்கியுள்ளனர்.",
+    category: "அரசியல்",
     image: "https://images.unsplash.com/photo-1623091410901-00e2d268ee3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    publishedAt: "2 hours ago",
-    authorName: "Sarah Johnson",
+    publishedAt: "2 மணி நேரத்திற்கு முன்",
+    authorName: "சரண் ஜான்சன்",
     authorImage: "https://i.pravatar.cc/150?img=37"
   };
 
   const secondaryArticles = [
     {
       id: 2,
-      title: "Tech Giants Unveil New AI Research Collaboration",
-      excerpt: "Leading technology companies announce joint initiative to advance artificial intelligence research and standards.",
-      category: "Technology",
+      title: "டெக் நிறுவனங்கள் புதிய செயற்கை நுண்ணறிவு ஆராய்ச்சி கூட்டமைப்பை அறிவிக்கின்றன",
+      excerpt: "முன்னணி தொழில்நுட்ப நிறுவனங்கள் செயற்கை நுண்ணறிவு ஆராய்ச்சியை மேம்படுத்துவதற்கான கூட்டு முயற்சியை அறிவித்துள்ளன.",
+      category: "தொழில்நுட்பம்",
       image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
-      publishedAt: "4 hours ago",
-      authorName: "Michael Chen",
+      publishedAt: "4 மணி நேரத்திற்கு முன்",
+      authorName: "மைக்கேல் சென்",
       authorImage: "https://i.pravatar.cc/150?img=12"
     },
     {
       id: 3,
-      title: "Medical Breakthrough in Cancer Treatment Shows Promise",
-      excerpt: "Researchers announce promising results from clinical trials of new immunotherapy approach to treating aggressive cancers.",
-      category: "Health",
+      title: "புற்றுநோய் சிகிச்சையில் மருத்துவ முன்னேற்றம்",
+      excerpt: "ஆக்கிரமிப்பு புற்றுநோய்களை சிகிச்சை செய்வதற்கான புதிய நோயெதிர்ப்பு அணுகுமுறையின் மருத்துவ சோதனைகளில் நம்பிக்கையான முடிவுகள்.",
+      category: "உடல்நலம்",
       image: "https://images.unsplash.com/photo-1579165466991-467135ad3110?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
-      publishedAt: "6 hours ago",
-      authorName: "Dr. Emily Roberts",
+      publishedAt: "6 மணி நேரத்திற்கு முன்",
+      authorName: "டாக்டர் எமிலி ராபர்ட்ஸ்",
       authorImage: "https://i.pravatar.cc/150?img=25"
     }
   ];
@@ -47,7 +47,7 @@ const FeaturedNews = ({ className }: FeaturedNewsProps) => {
   return (
     <section className={cn("py-8", className)}>
       <div className="news-container">
-        <h2 className="text-2xl font-bold mb-6">Featured News</h2>
+        <h2 className="text-2xl font-bold mb-6">முக்கிய செய்திகள்</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Featured Article */}
