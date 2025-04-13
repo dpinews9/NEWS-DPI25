@@ -1,15 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface ScrollingHeadlinesProps {
   headlines: {
     id: string;
     title: string;
   }[];
+  onOpenArticle: (id: string) => void;
 }
 
-const ScrollingHeadlines = ({ headlines }: ScrollingHeadlinesProps) => {
+const ScrollingHeadlines = ({ headlines, onOpenArticle }: ScrollingHeadlinesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -47,7 +48,10 @@ const ScrollingHeadlines = ({ headlines }: ScrollingHeadlinesProps) => {
           <ChevronLeft size={20} />
         </button>
         
-        <div className="flex-1 mx-4 overflow-hidden">
+        <div 
+          className="flex-1 mx-4 overflow-hidden cursor-pointer"
+          onClick={() => onOpenArticle(headlines[currentIndex].id)}
+        >
           <div className="whitespace-nowrap overflow-hidden text-ellipsis text-center animate-pulse">
             {headlines[currentIndex]?.title || ''}
           </div>

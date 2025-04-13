@@ -20,9 +20,10 @@ type Article = {
 interface FeaturedNewsProps {
   className?: string;
   articles?: Article[];
+  onOpenArticle: (id: string) => void;
 }
 
-const FeaturedNews = ({ className, articles = [] }: FeaturedNewsProps) => {
+const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsProps) => {
   // Use first 3 articles or fallback to placeholder if not enough articles
   const featuredArticles = articles.length >= 3 ? articles.slice(0, 3) : [
     {
@@ -58,7 +59,10 @@ const FeaturedNews = ({ className, articles = [] }: FeaturedNewsProps) => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Main Featured Article */}
-          <div className="col-span-1 md:col-span-2 relative rounded-lg overflow-hidden h-96 group">
+          <div 
+            className="col-span-1 md:col-span-2 relative rounded-lg overflow-hidden h-96 group cursor-pointer"
+            onClick={() => onOpenArticle(featuredArticles[0]?.id)}
+          >
             <div 
               className="absolute inset-0 bg-cover bg-center" 
               style={{ 
@@ -88,13 +92,16 @@ const FeaturedNews = ({ className, articles = [] }: FeaturedNewsProps) => {
                 </time>
               </div>
             </div>
-            <a href={`#article/${featuredArticles[0]?.id}`} className="absolute inset-0" aria-label={featuredArticles[0]?.title} />
           </div>
           
           {/* Secondary Featured Articles */}
           <div className="col-span-1 space-y-6">
             {featuredArticles.slice(1, 3).map((article, index) => (
-              <div key={article.id || `secondary-${index}`} className="relative rounded-lg overflow-hidden h-[calc(192px-0.75rem)] group">
+              <div 
+                key={article.id || `secondary-${index}`} 
+                className="relative rounded-lg overflow-hidden h-[calc(192px-0.75rem)] group cursor-pointer"
+                onClick={() => onOpenArticle(article.id)}
+              >
                 <div 
                   className="absolute inset-0 bg-cover bg-center" 
                   style={{ 
@@ -121,7 +128,6 @@ const FeaturedNews = ({ className, articles = [] }: FeaturedNewsProps) => {
                     </time>
                   </div>
                 </div>
-                <a href={`#article/${article.id}`} className="absolute inset-0" aria-label={article.title} />
               </div>
             ))}
           </div>

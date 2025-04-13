@@ -18,9 +18,10 @@ type Article = {
 interface NewsCategorySectionProps {
   category: string;
   articles: Article[];
+  onOpenArticle: (id: string) => void;
 }
 
-const NewsCategorySection = ({ category, articles = [] }: NewsCategorySectionProps) => {
+const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCategorySectionProps) => {
   // Ensure we have at least some articles to display
   const displayArticles = articles.length > 0 ? articles : [
     {
@@ -69,7 +70,10 @@ const NewsCategorySection = ({ category, articles = [] }: NewsCategorySectionPro
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Article */}
         <div className="lg:col-span-2">
-          <a href={`#article/${mainArticle.id}`} className="group block">
+          <div 
+            onClick={() => onOpenArticle(mainArticle.id)}
+            className="group block cursor-pointer"
+          >
             <div className="relative h-64 rounded-lg overflow-hidden mb-4">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105" 
@@ -94,16 +98,16 @@ const NewsCategorySection = ({ category, articles = [] }: NewsCategorySectionPro
                   : ''}
               </time>
             </div>
-          </a>
+          </div>
         </div>
         
         {/* Secondary Articles */}
         <div className="space-y-6">
           {remainingArticles.map((article) => (
-            <a 
+            <div 
               key={article.id} 
-              href={`#article/${article.id}`} 
-              className="flex items-start gap-4 group"
+              onClick={() => onOpenArticle(article.id)}
+              className="flex items-start gap-4 group cursor-pointer"
             >
               <div className="relative w-24 h-24 rounded overflow-hidden flex-shrink-0">
                 <div 
@@ -124,7 +128,7 @@ const NewsCategorySection = ({ category, articles = [] }: NewsCategorySectionPro
                     : ''}
                 </time>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

@@ -20,9 +20,10 @@ type Article = {
 interface TrendingNewsProps {
   className?: string;
   articles?: Article[];
+  onOpenArticle: (id: string) => void;
 }
 
-const TrendingNews = ({ className, articles = [] }: TrendingNewsProps) => {
+const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsProps) => {
   // Use provided articles or fallback to placeholders
   const trendingArticles = articles.length > 0 ? articles : [
     {
@@ -79,10 +80,10 @@ const TrendingNews = ({ className, articles = [] }: TrendingNewsProps) => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {trendingArticles.map((article, index) => (
-            <a 
+            <div 
               key={article.id || `trending-${index}`} 
-              href={`#article/${article.id}`}
-              className="group"
+              className="group cursor-pointer"
+              onClick={() => onOpenArticle(article.id)}
             >
               <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
                 <span className="absolute top-2 left-2 z-10 bg-news-accent text-white text-xs px-2 py-0.5 rounded-full">
@@ -112,7 +113,7 @@ const TrendingNews = ({ className, articles = [] }: TrendingNewsProps) => {
                   </time>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>
