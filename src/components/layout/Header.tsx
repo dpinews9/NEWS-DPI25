@@ -38,7 +38,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-news-primary">நியூஸ்மிரர்</h1>
+            <h1 className="text-2xl font-bold text-news-primary">தருமபுரி செய்திகள்</h1>
           </Link>
 
           {/* Desktop Navigation */}
