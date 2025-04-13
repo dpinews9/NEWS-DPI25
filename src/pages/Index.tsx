@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -5,6 +6,7 @@ import FeaturedNews from '@/components/news/FeaturedNews';
 import NewsCategorySection from '@/components/news/NewsCategorySection';
 import TrendingNews from '@/components/news/TrendingNews';
 import NewsletterSignup from '@/components/news/NewsletterSignup';
+import ScrollingHeadlines from '@/components/news/ScrollingHeadlines';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 
@@ -71,8 +73,8 @@ const Index = () => {
     fetchArticles();
   }, []);
 
-  // Use either fetched articles or fallback to mock data
-  const getArticlesByCategory = (category: string) => {
+  // Function to get articles by category, ensuring it returns an array not a promise
+  const getArticlesByCategory = (category: string): ArticleType[] => {
     if (loading) {
       return [];
     }
@@ -82,24 +84,22 @@ const Index = () => {
       return categorizedArticles[category];
     }
     
-    // Otherwise use our mock data
-    switch (category) {
-      case 'தொழில்நுட்பம்':
-        return import('@/data/mockNewsData').then(data => data.technologyArticles);
-      case 'வணிகம்':
-        return import('@/data/mockNewsData').then(data => data.businessArticles);
-      case 'உடல்நலம்':
-        return import('@/data/mockNewsData').then(data => data.healthArticles);
-      case 'பொழுதுபோக்கு':
-        return import('@/data/mockNewsData').then(data => data.entertainmentArticles);
-      default:
-        return [];
-    }
+    // Return empty array as fallback
+    return [];
   };
+
+  // Get top headlines for scrolling component
+  const topHeadlines = articles.slice(0, 10).map(article => ({
+    id: article.id,
+    title: article.title
+  }));
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      
+      {/* Add scrolling headlines at the top */}
+      <ScrollingHeadlines headlines={topHeadlines} />
       
       <main className="flex-grow">
         {loading ? (
