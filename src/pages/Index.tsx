@@ -146,7 +146,7 @@ const Index = () => {
               </h1>
               
               <div className="flex items-center text-news-muted mb-6">
-                <span>{openArticle.profiles?.full_name || openArticle.profiles?.username || 'நியூஸ்மிரர் நிருபர்'}</span>
+                <span>{openArticle.profiles?.full_name || openArticle.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
                 <span className="mx-2">•</span>
                 <time>
                   {formatDistanceToNow(new Date(openArticle.created_at), { 
