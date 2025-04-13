@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -7,6 +6,7 @@ import NewsCategorySection from '@/components/news/NewsCategorySection';
 import TrendingNews from '@/components/news/TrendingNews';
 import NewsletterSignup from '@/components/news/NewsletterSignup';
 import ScrollingHeadlines from '@/components/news/ScrollingHeadlines';
+import ImportantNews from '@/components/news/ImportantNews';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2, X } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -57,7 +57,6 @@ const Index = () => {
         if (data) {
           setArticles(data as ArticleType[]);
           
-          // Group articles by category
           const groupedArticles = data.reduce((acc: Record<string, ArticleType[]>, article: ArticleType) => {
             const category = article.category;
             if (!acc[category]) {
@@ -79,28 +78,23 @@ const Index = () => {
     fetchArticles();
   }, []);
 
-  // Function to get articles by category, ensuring it returns an array not a promise
   const getArticlesByCategory = (category: string): ArticleType[] => {
     if (loading) {
       return [];
     }
     
-    // If we have real articles for this category, use them
     if (categorizedArticles[category]?.length > 0) {
       return categorizedArticles[category];
     }
     
-    // Return empty array as fallback
     return [];
   };
 
-  // Get top headlines for scrolling component
   const topHeadlines = articles.slice(0, 10).map(article => ({
     id: article.id,
     title: article.title
   }));
 
-  // Handle opening an article
   const handleOpenArticle = (id: string) => {
     const article = articles.find(article => article.id === id);
     if (article) {
@@ -110,17 +104,17 @@ const Index = () => {
     }
   };
 
-  // Handle closing an article
   const handleCloseArticle = () => {
     setOpenArticleId(null);
     setOpenArticle(null);
   };
 
+  const importantArticles = articles.slice(0, 3);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      {/* Add scrolling headlines at the top */}
       <ScrollingHeadlines 
         headlines={topHeadlines} 
         onOpenArticle={handleOpenArticle} 
@@ -132,7 +126,6 @@ const Index = () => {
             <Loader2 className="h-8 w-8 animate-spin text-news-accent" />
           </div>
         ) : openArticle ? (
-          /* Full Article View */
           <div className="bg-white py-8">
             <div className="news-container">
               <div className="mb-4 flex items-center justify-between">
@@ -174,7 +167,6 @@ const Index = () => {
               )}
               
               <div className="prose prose-lg max-w-none">
-                {/* Split content by paragraphs and render them */}
                 {openArticle.content.split('\n').map((paragraph, index) => (
                   <p key={index} className="mb-4 text-news-text">
                     {paragraph}
@@ -200,6 +192,8 @@ const Index = () => {
         ) : (
           <>
             <FeaturedNews articles={articles.slice(0, 3)} onOpenArticle={handleOpenArticle} />
+            
+            <ImportantNews articles={importantArticles} onOpenArticle={handleOpenArticle} className="mt-8" />
             
             <TrendingNews className="mt-8" articles={articles.slice(0, 5)} onOpenArticle={handleOpenArticle} />
             
