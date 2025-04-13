@@ -87,7 +87,7 @@ const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCat
               {mainArticle.content}
             </p>
             <div className="flex items-center text-news-muted text-sm">
-              <span>{mainArticle.profiles?.full_name || mainArticle.profiles?.username || 'நியூஸ்மிரர் நிருபர்'}</span>
+              <span>{mainArticle.profiles?.full_name || mainArticle.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
               <span className="mx-2">•</span>
               <time>
                 {mainArticle.created_at 
