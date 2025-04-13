@@ -90,7 +90,7 @@ const ImportantNews = ({ className, articles = [], onOpenArticle }: ImportantNew
                   {article.content}
                 </p>
                 <div className="flex items-center text-news-muted text-xs">
-                  <span>{article.profiles?.full_name || article.profiles?.username || 'நியூஸ்மிரர் நிருபர்'}</span>
+                  <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
                   <span className="mx-2">•</span>
                   <time>
                     {article.created_at 
