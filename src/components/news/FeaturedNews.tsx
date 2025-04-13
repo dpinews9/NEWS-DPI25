@@ -80,7 +80,7 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
                 {featuredArticles[0]?.content}
               </p>
               <div className="flex items-center text-gray-300 text-sm">
-                <span>{featuredArticles[0]?.profiles?.full_name || featuredArticles[0]?.profiles?.username || 'நியூஸ்மிரர் நிருபர்'}</span>
+                <span>{featuredArticles[0]?.profiles?.full_name || featuredArticles[0]?.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
                 <span className="mx-2">•</span>
                 <time>
                   {featuredArticles[0]?.created_at 
@@ -116,7 +116,7 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
                   </span>
                   <h3 className="text-lg font-bold text-white group-hover:text-news-accent transition-colors">{article.title}</h3>
                   <div className="flex items-center text-gray-300 text-xs mt-2">
-                    <span>{article.profiles?.full_name || article.profiles?.username || 'நியூஸ்மிரர் நிருபர்'}</span>
+                    <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
                     <span className="mx-2">•</span>
                     <time>
                       {article.created_at 
