@@ -10,6 +10,8 @@ import ScrollingHeadlines from '@/components/news/ScrollingHeadlines';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2, X } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+
+// In date-fns v3, locale imports have changed
 import { ta } from 'date-fns/locale';
 
 type ArticleType = {
