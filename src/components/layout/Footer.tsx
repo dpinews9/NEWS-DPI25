@@ -12,9 +12,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div className="col-span-1">
-            <h3 className="text-xl font-bold mb-4 text-white">நியூஸ்மிரர்</h3>
+            <h3 className="text-xl font-bold mb-4 text-white">தருமபுரி செய்திகள்</h3>
             <p className="text-sm text-gray-300 mb-4">
-              உலகெங்கிலும் இருந்து நம்பகமான மற்றும் உள்ளார்ந்த செய்தி கவரேஜ் வழங்குகிறது. நியூஸ்மிரர் மூலம் நீங்கள் விழிப்புடன் இருங்கள்.
+              உலகெங்கிலும் இருந்து நம்பகமான மற்றும் உள்ளார்ந்த செய்தி கவரேஜ் வழங்குகிறது. தருமபுரி செய்திகள் மூலம் நீங்கள் விழிப்புடன் இருங்கள்.
             </p>
             <div className="flex space-x-4">
               <Button size="icon" variant="ghost" className="text-gray-300 hover:text-white">
@@ -94,7 +94,7 @@ const Footer = () => {
 
         <div className="border-t border-white/10 mt-8 pt-8 text-sm text-gray-300">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p>© 2025 நியூஸ்மிரர். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+            <p>© 2025 தருமபுரி செய்திகள். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link to="#" className="hover:text-white">தனியுரிமைக் கொள்கை</Link>
               <Link to="#" className="hover:text-white">சேவை விதிமுறைகள்</Link>
