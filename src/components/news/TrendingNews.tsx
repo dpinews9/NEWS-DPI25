@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
 import { ExternalLink } from 'lucide-react';
+import ArticleContextMenu from './ArticleContextMenu';
 
 type Article = {
   id: string;
@@ -81,50 +82,52 @@ const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsP
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {trendingArticles.map((article, index) => (
-            <div 
-              key={article.id || `trending-${index}`} 
-              className="group cursor-pointer relative"
-              onClick={() => onOpenArticle(article.id, false)}
+            <ArticleContextMenu 
+              key={article.id || `trending-${index}`}
+              id={article.id}
+              onOpenArticle={onOpenArticle}
             >
-              <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
-                <span className="absolute top-2 left-2 z-10 bg-news-accent text-white text-xs px-2 py-0.5 rounded-full">
-                  {index + 1}
-                </span>
-                <div 
-                  className="absolute inset-0 bg-center bg-cover transition-transform duration-300 group-hover:scale-105" 
-                  style={{ backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/300x200'})` }} 
-                />
-              </div>
-              <div>
-                <div className="flex items-start justify-between">
-                  <h3 className="font-semibold text-news-text group-hover:text-news-accent transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <ExternalLink 
-                    className="text-news-muted hover:text-news-accent ml-2 mt-1 flex-shrink-0" 
-                    size={16} 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenArticle(article.id, true);
-                    }} 
+              <div className="group relative h-full">
+                <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
+                  <span className="absolute top-2 left-2 z-10 bg-news-accent text-white text-xs px-2 py-0.5 rounded-full">
+                    {index + 1}
+                  </span>
+                  <div 
+                    className="absolute inset-0 bg-center bg-cover transition-transform duration-300 group-hover:scale-105" 
+                    style={{ backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/300x200'})` }} 
                   />
                 </div>
-                <div className="flex items-center mt-2 text-news-muted text-xs">
-                  <span className="bg-gray-200 text-gray-700 rounded px-2 py-0.5">
-                    {article.category}
-                  </span>
-                  <span className="mx-2">•</span>
-                  <time>
-                    {article.created_at 
-                      ? formatDistanceToNow(new Date(article.created_at), { 
-                          addSuffix: true, 
-                          locale: ta 
-                        })
-                      : ''}
-                  </time>
+                <div>
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-semibold text-news-text group-hover:text-news-accent transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <ExternalLink 
+                      className="text-news-muted hover:text-news-accent ml-2 mt-1 flex-shrink-0" 
+                      size={16} 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenArticle(article.id, true);
+                      }} 
+                    /> 
+                  </div>
+                  <div className="flex items-center mt-2 text-news-muted text-xs">
+                    <span className="bg-gray-200 text-gray-700 rounded px-2 py-0.5">
+                      {article.category}
+                    </span>
+                    <span className="mx-2">•</span>
+                    <time>
+                      {article.created_at 
+                        ? formatDistanceToNow(new Date(article.created_at), { 
+                            addSuffix: true, 
+                            locale: ta 
+                          })
+                        : ''}
+                    </time>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ArticleContextMenu>
           ))}
         </div>
       </div>
