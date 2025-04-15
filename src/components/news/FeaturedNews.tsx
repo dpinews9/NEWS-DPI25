@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
 import { ExternalLink } from 'lucide-react';
-import ArticleContextMenu from './ArticleContextMenu';
 
 type Article = {
   id: string;
@@ -61,104 +60,100 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Main Featured Article */}
-          <ArticleContextMenu 
-            id={featuredArticles[0]?.id} 
-            onOpenArticle={onOpenArticle}
+          <div 
+            className="col-span-1 md:col-span-2 relative rounded-lg overflow-hidden h-96 group cursor-pointer"
+            onClick={() => onOpenArticle(featuredArticles[0]?.id, true)}
           >
-            <div className="col-span-1 md:col-span-2 relative rounded-lg overflow-hidden h-96 group">
-              <div 
-                className="absolute inset-0 bg-cover bg-center" 
-                style={{ 
-                  backgroundImage: `url(${featuredArticles[0]?.image_url || 'https://via.placeholder.com/1200x800'})`,
-                  backgroundSize: 'cover'
-                }} 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <span className="bg-news-accent text-white text-xs px-3 py-1 rounded-full mb-3 inline-block">
-                  {featuredArticles[0]?.category || 'முக்கிய செய்தி'}
-                </span>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-news-accent transition-colors">
-                    {featuredArticles[0]?.title}
-                  </h3>
-                  <ExternalLink 
-                    className="text-white hover:text-news-accent" 
-                    size={24} 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenArticle(featuredArticles[0]?.id, true);
-                    }} 
-                  />
-                </div>
-                <p className="text-gray-200 mb-2 line-clamp-2">
-                  {featuredArticles[0]?.content}
-                </p>
-                <div className="flex items-center text-gray-300 text-sm">
-                  <span>{featuredArticles[0]?.profiles?.full_name || featuredArticles[0]?.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
-                  <span className="mx-2">•</span>
-                  <time>
-                    {featuredArticles[0]?.created_at 
-                      ? formatDistanceToNow(new Date(featuredArticles[0].created_at), { 
-                          addSuffix: true, 
-                          locale: ta 
-                        })
-                      : ''}
-                  </time>
-                </div>
+            <div 
+              className="absolute inset-0 bg-cover bg-center" 
+              style={{ 
+                backgroundImage: `url(${featuredArticles[0]?.image_url || 'https://via.placeholder.com/1200x800'})`,
+                backgroundSize: 'cover'
+              }} 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <span className="bg-news-accent text-white text-xs px-3 py-1 rounded-full mb-3 inline-block">
+                {featuredArticles[0]?.category || 'முக்கிய செய்தி'}
+              </span>
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-news-accent transition-colors">
+                  {featuredArticles[0]?.title}
+                </h3>
+                <ExternalLink 
+                  className="text-white hover:text-news-accent" 
+                  size={24} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenArticle(featuredArticles[0]?.id, true);
+                  }} 
+                />
+              </div>
+              <p className="text-gray-200 mb-2 line-clamp-2">
+                {featuredArticles[0]?.content}
+              </p>
+              <div className="flex items-center text-gray-300 text-sm">
+                <span>{featuredArticles[0]?.profiles?.full_name || featuredArticles[0]?.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
+                <span className="mx-2">•</span>
+                <time>
+                  {featuredArticles[0]?.created_at 
+                    ? formatDistanceToNow(new Date(featuredArticles[0].created_at), { 
+                        addSuffix: true, 
+                        locale: ta 
+                      })
+                    : ''}
+                </time>
               </div>
             </div>
-          </ArticleContextMenu>
+          </div>
           
           {/* Secondary Featured Articles */}
           <div className="col-span-1 space-y-6">
             {featuredArticles.slice(1, 3).map((article, index) => (
-              <ArticleContextMenu 
-                key={article.id || `secondary-${index}`}
-                id={article.id}
-                onOpenArticle={onOpenArticle}
+              <div 
+                key={article.id || `secondary-${index}`} 
+                className="relative rounded-lg overflow-hidden h-[calc(192px-0.75rem)] group cursor-pointer"
+                onClick={() => onOpenArticle(article.id, true)}
               >
-                <div className="relative rounded-lg overflow-hidden h-[calc(192px-0.75rem)] group">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center" 
-                    style={{ 
-                      backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/600x400'})`,
-                      backgroundSize: 'cover'
-                    }} 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <span className="bg-news-accent text-white text-xs px-2 py-0.5 rounded-full mb-2 inline-block">
-                      {article.category}
-                    </span>
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-bold text-white group-hover:text-news-accent transition-colors">
-                        {article.title}
-                      </h3>
-                      <ExternalLink 
-                        className="text-white hover:text-news-accent" 
-                        size={16} 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onOpenArticle(article.id, true);
-                        }} 
-                      />
-                    </div>
-                    <div className="flex items-center text-gray-300 text-xs mt-2">
-                      <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
-                      <span className="mx-2">•</span>
-                      <time>
-                        {article.created_at 
-                          ? formatDistanceToNow(new Date(article.created_at), { 
-                              addSuffix: true, 
-                              locale: ta 
-                            })
-                          : ''}
-                      </time>
-                    </div>
+                <div 
+                  className="absolute inset-0 bg-cover bg-center" 
+                  style={{ 
+                    backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/600x400'})`,
+                    backgroundSize: 'cover'
+                  }} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <span className="bg-news-accent text-white text-xs px-2 py-0.5 rounded-full mb-2 inline-block">
+                    {article.category}
+                  </span>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-bold text-white group-hover:text-news-accent transition-colors">
+                      {article.title}
+                    </h3>
+                    <ExternalLink 
+                      className="text-white hover:text-news-accent" 
+                      size={16} 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenArticle(article.id, true);
+                      }} 
+                    />
+                  </div>
+                  <div className="flex items-center text-gray-300 text-xs mt-2">
+                    <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
+                    <span className="mx-2">•</span>
+                    <time>
+                      {article.created_at 
+                        ? formatDistanceToNow(new Date(article.created_at), { 
+                            addSuffix: true, 
+                            locale: ta 
+                          })
+                        : ''}
+                    </time>
                   </div>
                 </div>
-              </ArticleContextMenu>
+              </div>
             ))}
           </div>
         </div>

@@ -5,7 +5,6 @@ import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
 import { Card, CardContent } from '@/components/ui/card';
 import { Newspaper } from 'lucide-react';
-import ArticleContextMenu from './ArticleContextMenu';
 
 type Article = {
   id: string;
@@ -23,7 +22,7 @@ type Article = {
 interface ImportantNewsProps {
   className?: string;
   articles?: Article[];
-  onOpenArticle: (id: string, newTab?: boolean) => void;
+  onOpenArticle: (id: string) => void;
 }
 
 const ImportantNews = ({ className, articles = [], onOpenArticle }: ImportantNewsProps) => {
@@ -67,45 +66,43 @@ const ImportantNews = ({ className, articles = [], onOpenArticle }: ImportantNew
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {importantArticles.map((article, index) => (
-            <ArticleContextMenu 
-              key={article.id || `important-${index}`}
-              id={article.id}
-              onOpenArticle={onOpenArticle}
+            <Card 
+              key={article.id || `important-${index}`} 
+              className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group border-news-accent/20"
+              onClick={() => onOpenArticle(article.id)}
             >
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow group border-news-accent/20 h-full">
-                <div className="relative h-48 overflow-hidden">
-                  <div 
-                    className="absolute inset-0 bg-center bg-cover transition-transform duration-300 group-hover:scale-105" 
-                    style={{ backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/400x300'})` }} 
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
-                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-news-accent text-white mb-2">
-                      {article.category}
-                    </span>
-                  </div>
+              <div className="relative h-48 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-center bg-cover transition-transform duration-300 group-hover:scale-105" 
+                  style={{ backgroundImage: `url(${article.image_url || 'https://via.placeholder.com/400x300'})` }} 
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
+                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-news-accent text-white mb-2">
+                    {article.category}
+                  </span>
                 </div>
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-news-heading group-hover:text-news-accent transition-colors line-clamp-2 mb-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 line-clamp-3 mb-3">
-                    {article.content}
-                  </p>
-                  <div className="flex items-center text-news-muted text-xs">
-                    <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
-                    <span className="mx-2">•</span>
-                    <time>
-                      {article.created_at 
-                        ? formatDistanceToNow(new Date(article.created_at), { 
-                            addSuffix: true, 
-                            locale: ta 
-                          })
-                        : ''}
-                    </time>
-                  </div>
-                </CardContent>
-              </Card>
-            </ArticleContextMenu>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-news-heading group-hover:text-news-accent transition-colors line-clamp-2 mb-2">
+                  {article.title}
+                </h3>
+                <p className="text-sm text-gray-600 line-clamp-3 mb-3">
+                  {article.content}
+                </p>
+                <div className="flex items-center text-news-muted text-xs">
+                  <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
+                  <span className="mx-2">•</span>
+                  <time>
+                    {article.created_at 
+                      ? formatDistanceToNow(new Date(article.created_at), { 
+                          addSuffix: true, 
+                          locale: ta 
+                        })
+                      : ''}
+                  </time>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
