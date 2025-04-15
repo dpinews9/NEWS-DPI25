@@ -11,9 +11,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Loader2, X } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
-// In date-fns v3, locale imports have changed
-import { ta } from 'date-fns/locale';
-
 type ArticleType = {
   id: string;
   title: string;
@@ -95,12 +92,16 @@ const Index = () => {
     title: article.title
   }));
 
-  const handleOpenArticle = (id: string) => {
+  const handleOpenArticle = (id: string, newTab: boolean = false) => {
     const article = articles.find(article => article.id === id);
     if (article) {
-      setOpenArticleId(id);
-      setOpenArticle(article);
-      window.scrollTo(0, 0);
+      if (newTab) {
+        window.open(`/article/${id}`, '_blank');
+      } else {
+        setOpenArticleId(id);
+        setOpenArticle(article);
+        window.scrollTo(0, 0);
+      }
     }
   };
 
@@ -117,7 +118,7 @@ const Index = () => {
       
       <ScrollingHeadlines 
         headlines={topHeadlines} 
-        onOpenArticle={handleOpenArticle} 
+        onOpenArticle={(id) => handleOpenArticle(id, false)} 
       />
       
       <main className="flex-grow">
@@ -191,11 +192,22 @@ const Index = () => {
           </div>
         ) : (
           <>
-            <FeaturedNews articles={articles.slice(0, 3)} onOpenArticle={handleOpenArticle} />
+            <FeaturedNews 
+              articles={articles.slice(0, 3)} 
+              onOpenArticle={(id, newTab) => handleOpenArticle(id, newTab)} 
+            />
             
-            <ImportantNews articles={importantArticles} onOpenArticle={handleOpenArticle} className="mt-8" />
+            <ImportantNews 
+              articles={importantArticles} 
+              onOpenArticle={(id, newTab) => handleOpenArticle(id, newTab)} 
+              className="mt-8" 
+            />
             
-            <TrendingNews className="mt-8" articles={articles.slice(0, 5)} onOpenArticle={handleOpenArticle} />
+            <TrendingNews 
+              className="mt-8" 
+              articles={articles.slice(0, 5)} 
+              onOpenArticle={(id, newTab) => handleOpenArticle(id, newTab)} 
+            />
             
             <div className="bg-white py-8" id="technology">
               <NewsCategorySection 

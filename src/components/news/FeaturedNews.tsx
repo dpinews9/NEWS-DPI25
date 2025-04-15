@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
+import { ExternalLink } from 'lucide-react';
 
 type Article = {
   id: string;
@@ -20,7 +21,7 @@ type Article = {
 interface FeaturedNewsProps {
   className?: string;
   articles?: Article[];
-  onOpenArticle: (id: string) => void;
+  onOpenArticle: (id: string, newTab?: boolean) => void;
 }
 
 const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsProps) => {
@@ -61,7 +62,7 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
           {/* Main Featured Article */}
           <div 
             className="col-span-1 md:col-span-2 relative rounded-lg overflow-hidden h-96 group cursor-pointer"
-            onClick={() => onOpenArticle(featuredArticles[0]?.id)}
+            onClick={() => onOpenArticle(featuredArticles[0]?.id, true)}
           >
             <div 
               className="absolute inset-0 bg-cover bg-center" 
@@ -75,7 +76,19 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
               <span className="bg-news-accent text-white text-xs px-3 py-1 rounded-full mb-3 inline-block">
                 {featuredArticles[0]?.category || 'முக்கிய செய்தி'}
               </span>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-news-accent transition-colors">{featuredArticles[0]?.title}</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-news-accent transition-colors">
+                  {featuredArticles[0]?.title}
+                </h3>
+                <ExternalLink 
+                  className="text-white hover:text-news-accent" 
+                  size={24} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenArticle(featuredArticles[0]?.id, true);
+                  }} 
+                />
+              </div>
               <p className="text-gray-200 mb-2 line-clamp-2">
                 {featuredArticles[0]?.content}
               </p>
@@ -100,7 +113,7 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
               <div 
                 key={article.id || `secondary-${index}`} 
                 className="relative rounded-lg overflow-hidden h-[calc(192px-0.75rem)] group cursor-pointer"
-                onClick={() => onOpenArticle(article.id)}
+                onClick={() => onOpenArticle(article.id, true)}
               >
                 <div 
                   className="absolute inset-0 bg-cover bg-center" 
@@ -114,7 +127,19 @@ const FeaturedNews = ({ className, articles = [], onOpenArticle }: FeaturedNewsP
                   <span className="bg-news-accent text-white text-xs px-2 py-0.5 rounded-full mb-2 inline-block">
                     {article.category}
                   </span>
-                  <h3 className="text-lg font-bold text-white group-hover:text-news-accent transition-colors">{article.title}</h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-bold text-white group-hover:text-news-accent transition-colors">
+                      {article.title}
+                    </h3>
+                    <ExternalLink 
+                      className="text-white hover:text-news-accent" 
+                      size={16} 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenArticle(article.id, true);
+                      }} 
+                    />
+                  </div>
                   <div className="flex items-center text-gray-300 text-xs mt-2">
                     <span>{article.profiles?.full_name || article.profiles?.username || 'தருமபுரி செய்திகள் நிருபர்'}</span>
                     <span className="mx-2">•</span>
