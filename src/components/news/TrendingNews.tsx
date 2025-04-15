@@ -84,7 +84,7 @@ const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsP
             <div 
               key={article.id || `trending-${index}`} 
               className="group cursor-pointer relative"
-              onClick={() => onOpenArticle(article.id)}
+              onClick={() => onOpenArticle(article.id, false)}
             >
               <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
                 <span className="absolute top-2 left-2 z-10 bg-news-accent text-white text-xs px-2 py-0.5 rounded-full">
