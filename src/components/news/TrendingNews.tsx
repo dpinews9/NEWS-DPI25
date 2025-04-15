@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
+import { ExternalLink } from 'lucide-react';
 
 type Article = {
   id: string;
@@ -20,7 +21,7 @@ type Article = {
 interface TrendingNewsProps {
   className?: string;
   articles?: Article[];
-  onOpenArticle: (id: string) => void;
+  onOpenArticle: (id: string, newTab?: boolean) => void;
 }
 
 const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsProps) => {
@@ -82,7 +83,7 @@ const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsP
           {trendingArticles.map((article, index) => (
             <div 
               key={article.id || `trending-${index}`} 
-              className="group cursor-pointer"
+              className="group cursor-pointer relative"
               onClick={() => onOpenArticle(article.id)}
             >
               <div className="relative mb-3 aspect-[4/3] rounded-md overflow-hidden">
@@ -95,9 +96,19 @@ const TrendingNews = ({ className, articles = [], onOpenArticle }: TrendingNewsP
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-news-text group-hover:text-news-accent transition-colors line-clamp-2">
-                  {article.title}
-                </h3>
+                <div className="flex items-start justify-between">
+                  <h3 className="font-semibold text-news-text group-hover:text-news-accent transition-colors line-clamp-2">
+                    {article.title}
+                  </h3>
+                  <ExternalLink 
+                    className="text-news-muted hover:text-news-accent ml-2 mt-1 flex-shrink-0" 
+                    size={16} 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenArticle(article.id, true);
+                    }} 
+                  />
+                </div>
                 <div className="flex items-center mt-2 text-news-muted text-xs">
                   <span className="bg-gray-200 text-gray-700 rounded px-2 py-0.5">
                     {article.category}

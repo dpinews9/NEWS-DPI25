@@ -10,6 +10,7 @@ import ImportantNews from '@/components/news/ImportantNews';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2, X } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { ta } from 'date-fns/locale';
 
 type ArticleType = {
   id: string;
@@ -206,13 +207,13 @@ const Index = () => {
             <TrendingNews 
               className="mt-8" 
               articles={articles.slice(0, 5)} 
-              onOpenArticle={(id, newTab) => handleOpenArticle(id, newTab)} 
+              onOpenArticle={(id) => handleOpenArticle(id, false)} 
             />
             
             <div className="bg-white py-8" id="technology">
               <NewsCategorySection 
                 category="தொழில்நுட்பம்" 
-                articles={getArticlesByCategory('தொழில்நுட்பம்')}
+                articles={getArticlesByCategory('தொழி���்நுட்பம்')}
                 onOpenArticle={handleOpenArticle}
               />
             </div>

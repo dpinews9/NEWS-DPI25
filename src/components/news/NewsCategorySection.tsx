@@ -2,6 +2,7 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { ta } from 'date-fns/locale';
+import { ExternalLink } from 'lucide-react';
 
 type Article = {
   id: string;
@@ -18,7 +19,7 @@ type Article = {
 interface NewsCategorySectionProps {
   category: string;
   articles: Article[];
-  onOpenArticle: (id: string) => void;
+  onOpenArticle: (id: string, newTab?: boolean) => void;
 }
 
 const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCategorySectionProps) => {
@@ -72,7 +73,7 @@ const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCat
         <div className="lg:col-span-2">
           <div 
             onClick={() => onOpenArticle(mainArticle.id)}
-            className="group block cursor-pointer"
+            className="group block cursor-pointer relative"
           >
             <div className="relative h-64 rounded-lg overflow-hidden mb-4">
               <div 
@@ -80,9 +81,19 @@ const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCat
                 style={{ backgroundImage: `url(${mainArticle.image_url || 'https://via.placeholder.com/800x600'})` }} 
               />
             </div>
-            <h3 className="text-xl font-bold text-news-heading group-hover:text-news-accent transition-colors mb-2">
-              {mainArticle.title}
-            </h3>
+            <div className="flex items-start justify-between">
+              <h3 className="text-xl font-bold text-news-heading group-hover:text-news-accent transition-colors mb-2">
+                {mainArticle.title}
+              </h3>
+              <ExternalLink 
+                className="text-news-muted hover:text-news-accent ml-2 mt-1 flex-shrink-0" 
+                size={18} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenArticle(mainArticle.id, true);
+                }} 
+              />
+            </div>
             <p className="text-news-text line-clamp-3 mb-3">
               {mainArticle.content}
             </p>
@@ -107,7 +118,7 @@ const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCat
             <div 
               key={article.id} 
               onClick={() => onOpenArticle(article.id)}
-              className="flex items-start gap-4 group cursor-pointer"
+              className="flex items-start gap-4 group cursor-pointer relative"
             >
               <div className="relative w-24 h-24 rounded overflow-hidden flex-shrink-0">
                 <div 
@@ -116,9 +127,19 @@ const NewsCategorySection = ({ category, articles = [], onOpenArticle }: NewsCat
                 />
               </div>
               <div className="flex-grow">
-                <h3 className="font-medium text-news-heading group-hover:text-news-accent transition-colors line-clamp-2 mb-1">
-                  {article.title}
-                </h3>
+                <div className="flex items-start justify-between">
+                  <h3 className="font-medium text-news-heading group-hover:text-news-accent transition-colors line-clamp-2 mb-1">
+                    {article.title}
+                  </h3>
+                  <ExternalLink 
+                    className="text-news-muted hover:text-news-accent ml-2 flex-shrink-0" 
+                    size={14} 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenArticle(article.id, true);
+                    }} 
+                  />
+                </div>
                 <time className="text-news-muted text-xs">
                   {article.created_at 
                     ? formatDistanceToNow(new Date(article.created_at), { 
